@@ -1,13 +1,12 @@
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 '''
-Created on 12-02-2014
+Created on 27-04-2017
 
-@author: CRodriguez
+@author: RInostroza
 '''
 import arcpy
 
 class JSONFormulario:
-    # PARAMETROS POR DEFECTO - CAMBIAR SEGUN TIPO DE SERVICIO AM,FM, RCC, ISDBT o UHF
     _data_calculos = {}
     _identificador = ""
     _token = "xxxxxxxxxxxxx"
