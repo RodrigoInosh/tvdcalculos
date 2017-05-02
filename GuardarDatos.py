@@ -21,6 +21,8 @@ def getParameters():
 	params.identificador = arcpy.GetParameterAsText(1)
 	params.token = arcpy.GetParameterAsText(2)
 	params.mongo_id = arcpy.GetParameterAsText(3)
+	params.nombre_calculo = arcpy.GetParameterAsText(4)
+	params.action = arcpy.GetParameterAsText(5)
 
 def validateValueInCollection(data, collection_name, mongo_id):
 	arcpy.AddMessage(collection_name)
@@ -35,7 +37,7 @@ getParameters()
 #CREAR FUNCIÓN PARA OBTENER LA INFORMACIÓN DEL USUARIO EN BASE AL TOKEN.
 user_data = "RodrigoInostroza"#getUserInfo(token)
 
-json = {"user": user_data, "identificador": params.identificador, "calculos": [json.loads(params.data_calculos)]}
+json = {"nombre": params.nombre_calculo, "user": user_data, "identificador": params.identificador, "calculos": [json.loads(params.data_calculos)]}
 validateValueInCollection(json, user_data, params.mongo_id)
 
-arcpy.SetParameterAsText(3, "params")
+arcpy.SetParameterAsText(6, "ok")

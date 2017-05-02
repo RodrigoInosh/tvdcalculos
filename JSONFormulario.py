@@ -11,9 +11,13 @@ class JSONFormulario:
     _identificador = ""
     _token = "xxxxxxxxxxxxx"
     _mongo_id = "xxxxxxxxxxxxx"
+    _nombre_calculo = "xxxxxxxxxxxxx"
+    _action = "xxxxxxxxxxxxx"
         
     def __init__(self):
         self.data_calculos = self._data_calculos
         self.identificador = self._identificador
         self.token = self._token
         self.mongo_id = self._mongo_id
+        self.nombre_calculo = self._nombre_calculo
+        self.action = self._action
