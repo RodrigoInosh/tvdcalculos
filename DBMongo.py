@@ -11,9 +11,8 @@ def _initMongoConnection(database_name):
 def saveData(data, mongo_connection, collection_name):
 	collection = mongo_connection[collection_name]
 	doc_id = collection.insert(data)
-	arcpy.AddMessage(doc_id)
 	collection.update({"_id": doc_id}, {"$set": {"str_ident": str(doc_id)}})
-	# doc_id = collection.insert_one(data).inserted_id
+	return doc_id
 
 def updateData(data, mongo_connection, collection_name, mongo_id):
 	collection = mongo_connection[collection_name]
