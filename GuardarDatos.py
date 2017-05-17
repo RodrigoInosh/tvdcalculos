@@ -14,7 +14,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 params = JSONFormulario.JSONFormulario()
-mongo_connection = DBMongo._initMongoConnection("Calculos")
+mongo_collection = DBMongo._initMongoConnection("Calculos", "calculosTVD")
 calculos = {}
 inserted_id = 0
 status = ""
@@ -33,11 +33,11 @@ def validateValueInCollection(data, collection_name, mongo_id):
 		global inserted_id
 		
 		status = "saved"
-		inserted_id = DBMongo.saveData(data, mongo_connection, collection_name)
+		inserted_id = DBMongo.saveData(data, mongo_collection)
 	else:
 		global status
 		status = "updated"
-		DBMongo.updateData(data["calculos"], mongo_connection, collection_name, mongo_id)
+		DBMongo.updateData(data["calculos"], mongo_collection, mongo_id)
 
 def formatCoordinates(calculos):
 	latitud = calculos["pLatitud"]
@@ -55,14 +55,16 @@ getParameters()
 
 
 #CREAR FUNCIÓN PARA OBTENER LA INFORMACIÓN DEL USUARIO EN BASE AL TOKEN.
-user_data = "RodrigoInostroza"#getUserInfo(token)
+user_data = DBMongo.getUserInfo(params.token)
+user_name = user_data.get("usuario")
 
 calculos = json.loads(params.data_calculos)
 formatCoordinates(calculos)
 
-json_request = {"nombre": params.nombre_calculo, "user": user_data, "identificador": params.identificador, "calculos": [calculos]}
-validateValueInCollection(json_request, user_data, params.mongo_id)
+json_request = {"nombre": params.nombre_calculo, "user": user_name, "identificador": params.identificador, "calculos": [calculos], "datos": [json.loads(json.dumps(user_data))]}
+validateValueInCollection(json_request, user_name, params.mongo_id)
 
 test = {"status": status, "nombre": str(params.nombre_calculo), "mongo_id": str(inserted_id)}
+
 json_response = json.dumps(test)
 arcpy.SetParameterAsText(6, json_response)

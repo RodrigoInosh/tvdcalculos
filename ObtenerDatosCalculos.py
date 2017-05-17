@@ -24,8 +24,10 @@ def getParameters():
 getParameters()
 #CREAR FUNCIÓN PARA OBTENER LA INFORMACIÓN DEL USUARIO EN BASE AL TOKEN.
 
-user_data = "RodrigoInostroza"#getUserInfo(token)
+user_data = DBMongo.getUserInfo(params.token)
+for datos_user in user_data:
+	user_name = datos_user.get("usuario")
 
-datos = DBMongo.getDataCalculo(mongo_connection, user_data, params.mongo_id)
+datos = DBMongo.getDataCalculo(mongo_connection, user_name, params.mongo_id)
 json = json.dumps(datos)
 arcpy.SetParameterAsText(2, json)
