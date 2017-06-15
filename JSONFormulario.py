@@ -13,6 +13,7 @@ class JSONFormulario:
     _mongo_id = "xxxxxxxxxxxxx"
     _nombre_calculo = "xxxxxxxxxxxxx"
     _action = "xxxxxxxxxxxxx"
+    _codigo_postulacion = "xxxx"
         
     def __init__(self):
         self.data_calculos = self._data_calculos
@@ -21,3 +22,4 @@ class JSONFormulario:
         self.mongo_id = self._mongo_id
         self.nombre_calculo = self._nombre_calculo
         self.action = self._action
+        self.codigo_postulacion = self._codigo_postulacion

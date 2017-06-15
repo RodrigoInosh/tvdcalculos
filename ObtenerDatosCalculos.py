@@ -14,7 +14,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 params = JSONFormulario.JSONFormulario()
-mongo_connection = DBMongo._initMongoConnection("Calculos")
+mongo_collection = DBMongo._initMongoConnection("Calculos", "calculosTVD")
 
 def getParameters():
 	params.mongo_id = arcpy.GetParameterAsText(0)
@@ -22,12 +22,7 @@ def getParameters():
 	return params
 
 getParameters()
-#CREAR FUNCIÓN PARA OBTENER LA INFORMACIÓN DEL USUARIO EN BASE AL TOKEN.
 
-user_data = DBMongo.getUserInfo(params.token)
-for datos_user in user_data:
-	user_name = datos_user.get("usuario")
-
-datos = DBMongo.getDataCalculo(mongo_connection, user_name, params.mongo_id)
+datos = DBMongo.getDataCalculo(mongo_collection, params.mongo_id)
 json = json.dumps(datos)
 arcpy.SetParameterAsText(2, json)
