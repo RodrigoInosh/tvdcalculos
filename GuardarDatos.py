@@ -30,9 +30,9 @@ def getParameters():
 
 def validateValueInCollection(data, user_name, mongo_id):
 	arcpy.AddMessage(user_name)
+	arcpy.AddMessage(params.action)
 	if params.action == "definitive":
 		params.codigo_postulacion = arcpy.GetParameterAsText(6)
-		arcpy.AddMessage(params.codigo_postulacion)
 		global status
 		global inserted_id
 		status = "saved"
@@ -66,6 +66,7 @@ getParameters()
 #CREAR FUNCIÓN PARA OBTENER LA INFORMACIÓN DEL USUARIO EN BASE AL TOKEN.
 
 user_data = DBMongo.getUserInfo(params.token)
+arcpy.AddMessage(user_data)
 json_response = []
 try:
 	user_name = user_data.get("nombre")
@@ -80,4 +81,6 @@ except AttributeError:
 	arcpy.AddMessage("fdgdfh")
 	json_response = json.dumps(test)
 
-arcpy.SetParameterAsText(6, json_response)
+arcpy.AddMessage("json_response")
+arcpy.AddMessage(json_response)
+arcpy.SetParameterAsText(7, json_response)

@@ -50,7 +50,6 @@ def setDataAsDefinitive(data, mongo_id, user_name, codigo_postulacion):
 
 	query_conditions = {"identificador": identificador, "user": user_name, "definitivo": "1", "estudio": estudio, "calculos.form_data.carac_tecnicas.sist_radiante": sist_radiante, 
 		"calculos.pIntensidad": intensidad, "codigo_postulacion": codigo_postulacion}
-	arcpy.AddMessage(query_conditions)
 	try:
 		sistema_radiante = datos_calculos.get("form_data").get("carac_tecnicas").get("sist_radiante")
 	except:
@@ -77,8 +76,7 @@ def eliminarValorDefinitivo(mongo_collection, query_conditions, data_exists):
 
 	if data_exists == "existe":
 		arcpy.AddMessage("Hay que eliminar valor")
-		query_execute = mongo_collection.delete_one(query_conditions)
-		# query_execute = mongo_collection.update(query_conditions, {"$unset": {"calculos.$.definitivo": "true"}})
+		query_execute = mongo_collection.remove(query_conditions, "true")
 	else:
 		arcpy.AddMessage("No existia un definitivo previo")
 
