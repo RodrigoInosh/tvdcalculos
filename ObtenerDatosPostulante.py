@@ -18,7 +18,8 @@ getParameters()
 user_data = DBMongo.getUserInfo(params.token)
 user_name = user_data.get("nombre")
 
-datos = DBMongo.getData(mongo_collection, params.identificador, user_name)
+arcpy.AddMessage("Token:"+ str(params.token))
+datos = DBMongo.getData(mongo_collection, params.identificador, params.token)
 
 json_values = []
 for item in datos:

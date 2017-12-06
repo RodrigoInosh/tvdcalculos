@@ -41,7 +41,8 @@ user_data = DBMongo.getUserInfo(params.token)
 user_name = user_data.get("nombre")
 empresa_info = getInfoEmpresa(user_data)
 
-datos = DBMongo.getData(mongo_collection, params.identificador, user_name)
+arcpy.AddMessage("Token:"+str(params.token))
+datos = DBMongo.getData(mongo_collection, params.identificador, params.token)
 
 json_values = []
 json_values.append({'empresa': json.loads(empresa_info)})

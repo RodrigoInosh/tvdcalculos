@@ -21,9 +21,9 @@ def saveData(data, mongo_collection):
 def updateData(data, mongo_collection, mongo_id):
 	mongo_collection.update({"_id": ObjectId(mongo_id)}, {"$set": {"calculos": data}})
 
-def getData(mongo_collection, identificador, user_name):
-	arcpy.AddMessage(user_name);
-	data = mongo_collection.find({"user": user_name, "identificador": identificador}, {'mongo_id': 1, 'nombre': 1})
+def getData(mongo_collection, identificador, user_id):
+	# arcpy.AddMessage(user_name);
+	data = mongo_collection.find({"datos.id": user_id, "identificador": identificador}, {'mongo_id': 1, 'nombre': 1})
 	return data
 
 def getDataCalculo(mongo_collection, mongo_id):
